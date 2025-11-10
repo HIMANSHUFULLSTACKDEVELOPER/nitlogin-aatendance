@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nit</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+   
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+
+<body>
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-logo">
+                <h1>
+                    Nagpur Institute Of Technology</h1>
+                <p>Admin Dashboard Login</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                Invalid username or password
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <div class="demo-credentials">
+                <p><strong>Demo:</strong></p>
+                <p>Username: <strong>admin</strong></p>
+                <p>Password: <strong>admin123</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰ Menu</button>
+
+        <div class="sidebar">
+            <div class="logo">
+                Nagpur Institute Of Technology</div>
+
+            <div class="user-info">
+                <h3 id="loggedUser">Administrator</h3>
+                <p>Admin Access</p>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="nav-item active" onclick="showSection('overview')">📊 Overview</div>
+            <div class="nav-item" onclick="showSection('teachers')">👨‍🏫 Teachers</div>
+            <div class="nav-item" onclick="showSection('hods')">👔 HODs</div>
+            <div class="nav-item" onclick="showSection('departments')">🏢 Departments</div>
+            <div class="nav-item" onclick="showSection('reports')">📈 Reports</div>
+            <div class="nav-item" onclick="showSection('permissions')">🔐 Permissions</div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Welcome, Administrator</h1>
+                <p>Manage your educational institution efficiently</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Teachers</h3>
+                    <div class="number" id="totalTeachers">90</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total HODs</h3>
+                    <div class="number" id="totalHODs">8</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Departments</h3>
+                    <div class="number" id="totalDepts">8</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <div class="number" id="totalStudents">500</div>
+                </div>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="content-section active" id="overview">
+                <h2>Dashboard Overview</h2>
+                <p style="margin-top: 20px; color: #666;">Select a section from the sidebar to manage users,
+                    departments, and view reports.</p>
+
+                <!--  make 3 card teacher and parents and student  -->
+                <div style="display: flex; gap: 20px; margin-top: 30px;">
+                    <div class="stat-card" style="flex: 1; text-align: center;">
+                        <h3> dashboard</h3>
+                        <a style="text-decoration: none;" href="">
+                            <div class="number" id="overviewDepts">Teachers</div>
+                        </a>
+                    </div>
+                    <div class="stat-card" style="flex: 1; text-align: center;">
+                        <h3> dashborad</h3>
+                        <a  style="text-decoration: none;"  href="" >
+                            <div class="number" id="overviewDepts">student</div>
+                        </a>
+                    </div>
+                   
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <!-- Teachers Section -->
+            <div class="content-section" id="teachers">
+                <div class="section-header">
+                    <h2>Teachers Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('teacher')">➕ Add Teacher</button>
+                </div>
+                <table id="teachersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- HODs Section -->
+            <div class="content-section" id="hods">
+                <div class="section-header">
+                    <h2>HODs Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('hod')">➕ Add HOD</button>
+                </div>
+                <table id="hodsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Departments Section -->
+            <div class="content-section" id="departments">
+                <div class="section-header">
+                    <h2>Departments Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('department')">➕ Add Department</button>
+                </div>
+                <table id="departmentsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>HOD</th>
+                            <th>Teachers</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <!-- Year Branches Section -->
+                <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #e0e0e0;">
+                    <h2 style="margin-bottom: 20px;">Engineering Branches</h2>
+
+                    <!-- Year Tabs -->
+                    <div class="year-tabs">
+                        <div class="year-tab active" onclick="showYear('firstYear')">1st Year</div>
+                        <div class="year-tab" onclick="showYear('secondYear')">2nd Year</div>
+                    </div>
+
+                    <!-- First Year Content -->
+                    <div class="year-content active" id="firstYearContent">
+                        <div id="firstYearBranchList">
+                            <div class="branch-cards" id="firstYearBranches"></div>
+                        </div>
+                        <div id="firstYearBranchDetail" style="display: none;">
+                            <button class="back-btn" onclick="backToBranchList('firstYear')">← Back to 1st Year
+                                Branches</button>
+                            <h2 id="firstYearBranchTitle"></h2>
+                            <div class="branch-details">
+                                <h3>Teachers</h3>
+                                <table id="firstYearTeachersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Subject</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                                <h3 style="margin-top: 30px;">Students Progress Report</h3>
+                                <div class="progress-list" id="firstYearProgressList"></div>
+
+                                <div class="chart-container">
+                                    <h3>Performance Analytics</h3>
+                                    <canvas id="firstYearProgressChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>📊 Subject-wise Average Attendance</h3>
+                                    <canvas id="firstYearSubjectAttendanceChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>Attendance Overview</h3>
+                                    <canvas id="firstYearAttendanceChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>Subject-wise Average Scores</h3>
+                                    <canvas id="firstYearSubjectChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Year Content -->
+                    <div class="year-content" id="secondYearContent">
+                        <div id="secondYearBranchList">
+                            <div class="branch-cards" id="secondYearBranches"></div>
+                        </div>
+                        <div id="secondYearBranchDetail" style="display: none;">
+                            <button class="back-btn" onclick="backToBranchList('secondYear')">← Back to 2nd Year
+                                Branches</button>
+                            <h2 id="secondYearBranchTitle"></h2>
+                            <div class="branch-details">
+                                <h3>Teachers</h3>
+                                <table id="secondYearTeachersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Subject</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                                <h3 style="margin-top: 30px;">Students Progress Report</h3>
+                                <div class="progress-list" id="secondYearProgressList"></div>
+
+                                <div class="chart-container">
+                                    <h3>Performance Analytics</h3>
+                                    <canvas id="secondYearProgressChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>📊 Subject-wise Average Attendance</h3>
+                                    <canvas id="secondYearSubjectAttendanceChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>Attendance Overview</h3>
+                                    <canvas id="secondYearAttendanceChart"></canvas>
+                                </div>
+
+                                <div class="chart-container">
+                                    <h3>Subject-wise Average Scores</h3>
+                                    <canvas id="secondYearSubjectChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div class="content-section" id="reports">
+                <h2>Reports by Department</h2>
+                <div style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label>Select Department</label>
+                        <select id="reportDept" onchange="loadDepartmentReport()">
+                            <option value="">-- Select Department --</option>
+                        </select>
+                    </div>
+                    <div id="reportContent" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Permissions Section -->
+            <div class="content-section" id="permissions">
+                <h2>Roles and Permissions</h2>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Responsibilities</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Admin</strong></td>
+                            <td>Manage all users, departments, and system settings</td>
+                            <td>Full Access</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HOD</strong></td>
+                            <td>Manage department teachers and operations</td>
+                            <td>Department Level</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teacher</strong></td>
+                            <td>Manage classes, attendance, and grades</td>
+                            <td>Class Level</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add User</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group" id="deptGroup">
+                    <label>Department</label>
+                    <select id="userDept"></select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/admin.js"></script>
+
+</body>
+
+</html>
